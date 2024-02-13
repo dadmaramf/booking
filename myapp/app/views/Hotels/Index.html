@@ -1,0 +1,26 @@
+{% set title = "Hotels" %}
+{% include "header.html" %}
+
+<div class="container">
+    {% if user %}
+        <h2>Hello, {{ user.Name }}!</h2>
+        <p>We are glad you visited us. Enjoy your stay!</p>
+        {% if bookings %}
+            <h3>Your Bookings:</h3>
+            <ul>
+                {% for booking in bookings %}
+                    <li>Check-In: {{ booking.CheckIn }}, Check-Out: {{ booking.CheckOut }}</li>
+                {% endfor %}
+                <p><a href="{% url "BookingApp.ShowBookingForm" %}">Book a room</a></p>
+            </ul>
+        {% else %}
+            <p>No bookings yet. <a href="{% url "BookingApp.ShowBookingForm" %}">Book a room</a></p>
+        {% endif %}
+    {% else %}
+        <h2>Please log in to access the Hotel</h2>
+        <p><a href="{% url "App.Index" %}">Login</a></p>
+    {% endif %}
+</div>
+
+{% include "footer.html" %}
+

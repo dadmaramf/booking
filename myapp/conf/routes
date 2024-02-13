@@ -1,0 +1,49 @@
+# Routes Config
+#
+# This file defines all application routes (Higher priority routes first)
+#
+
+module:testrunner
+# module:jobs
+
+
+GET     /                                       App.Index
+
+# Ignore favicon requests
+GET     /favicon.ico                            Static.Serve("public","img/favicon.png")
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/*filepath                       Static.Serve("public")
+GET     /public/*filepath                       Static.ServeDir("public")
+GET     /public                                 Static.ServeDir("public")
+
+# Catch all, this will route any request into the controller path
+#
+#                    **** WARNING ****
+# Enabling this exposes any controller and function to the web.
+# ** This is a serious security issue if used online **
+#
+# For rapid development uncomment the following to add new controller.action endpoints
+# without having to add them to the routes table.
+# *       /:controller/:action                    :controller.:action
+
+GET     /register                        App.Register
+POST    /register                        App.SaveUser
+GET     /logout                          App.Logout
+GET     /hotels                          Hotels.Index
+GET     /booking/form                    BookingApp.ShowBookingForm
+POST    /booking/book                    BookingApp.BookRoom
+# GET     /verify/:verificationCode    App.VerifyEmail
+
+# Catch all
+*       /:controller/:action                    :controller.:action
+
+# This will serve the generated swagger spec built from from any route with
+# a basePath of "/api" and spec accessible at "/@api/swagger.json"
+# GET     /@api/swagger.json                      Swaggify.Spec("/api")
+# Serve the default swagger-ui based on the prefix ("/api")
+# GET     /@api/	                                Swaggify.ServeUI("/api")
+# GET     /@api/*filepath                         Swaggify.ServeAssets
+# GET     /@api/editor                            SwaggerEditor.Serve("conf", "swagger.yml")
+
+

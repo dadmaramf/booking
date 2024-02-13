@@ -1,0 +1,44 @@
+{% set title = "Booking Form" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/public/css/stylebook.css">
+</head>
+<body>
+
+    <div class="container">
+
+        {% if user %}
+            <h2>{{ title }}</h2>
+
+            <form action="{% url "BookingApp.BookRoom" %}" method="post" onsubmit="return validateForm()">
+                <input type="hidden" name="userID" value="{{ user.ID }}">
+                <label for="checkIn">Check-In Date:</label>
+                <input type="date" name="checkIn" id="checkIn" required>
+
+                <label for="checkOut">Check-Out Date:</label>
+                <input type="date" name="checkOut" id="checkOut" required>
+
+                <label for="roomType">Room Type:</label>
+                <select name="roomType" required>
+                    <option value="single">Одноместная</option>
+                    <option value="double">Двуxместная</option>
+                    <option value="luxury">Люкс</option>
+                </select>
+
+                <button type="submit">Book Room</button>
+            </form>
+            <p><a href="/hotels">Выйти</a></p>
+        {% else %}
+            <p>Пожалуйста, <a href="/">войдите</a>, чтобы забронировать номер.</p>
+        {% endif %}
+
+    </div>
+    <script src="/public/js/showbook.js"></script>
+
+</body>
+</html>
